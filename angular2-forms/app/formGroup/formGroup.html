@@ -1,0 +1,14 @@
+<div>
+    <h2>MY FORM GROUP</h2>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
+        <div>
+            <label for="uname">Username:</label>
+            <input id='uname' type="text" [formControl]="myForm.controls['username']">
+        </div>
+        <div>
+            <label for="uid">User Id:</label>
+            <input id='uid' type="text" [formControl]="myForm.controls['userid']">
+        </div>
+        <input type="submit" value="Submit Me">
+    </form>
+</div>

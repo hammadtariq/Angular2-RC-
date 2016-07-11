@@ -1,0 +1,8 @@
+<div>
+    <h2>MY SIMPLE FORM</h2>
+    <form #f="ngForm" (ngSubmit)="onSubmit2(f.value)">
+        <label for="username">Username:</label>
+        <input id='username' type="text" name='user' ngModel>
+        <input type="submit" value="Submit Me">
+    </form>
+</div>

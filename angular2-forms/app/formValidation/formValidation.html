@@ -1,0 +1,25 @@
+<div>
+    <h2>MY FORM VALIDATION</h2>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
+        <!--oneway binded fields-->
+        <div class="field" [class.error]="myForm.controls['username'].touched && myForm.controls['username'].hasError('invalidUsername')">
+            <label for="uname">Username:</label>
+            <input id='uname' type="text" [formControl]="myForm.controls['username']">
+            <div *ngIf="myForm.controls['username'].hasError('required') && myForm.controls['username'].touched">username is required</div>
+            <div *ngIf="myForm.controls['username'].hasError('invalidUsername') && myForm.controls['username'].touched">username should not be a numeric value</div>
+        </div>
+        <div class="field" [class.error]="myForm.controls['userid'].touched && myForm.controls['userid'].hasError('invalidUserid')">
+            <label for="uid">User Id:</label>
+            <input id='uid' type="text" [formControl]="myForm.controls['userid']">
+            <div *ngIf="myForm.controls['userid'].hasError('required') && myForm.controls['userid'].touched">userid is required</div>
+            <div *ngIf="myForm.controls['userid'].hasError('invalidUserid') && myForm.controls['userid'].touched">userid should be a numeric value</div>
+        </div>
+        <!--two way binded field-->
+        <div class="field">
+            <label for="pname">Product Name:</label>
+            <input id='pname' type="text" [formControl]="myForm.find('productname')" [(ngModel)]="productname">
+        </div>
+        <input type="submit" [disabled]="!myForm.valid" value="Submit Me">
+        <div *ngIf="!myForm.valid && myForm.dirty">some form fields are invalid</div>
+    </form>
+</div>
