@@ -1,0 +1,8 @@
+{
+  "globalDependencies": {
+    "core-js": "registry:dt/core-js#0.0.0+20160317120654",
+    "firebase3": "file:node_modules/angularfire2/firebase3.d.ts",
+    "jasmine": "registry:dt/jasmine#2.2.0+20160505161446",
+    "node": "registry:dt/node#4.0.0+20160509154515"
+  }
+}
