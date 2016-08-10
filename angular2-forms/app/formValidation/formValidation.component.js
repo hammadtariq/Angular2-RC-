@@ -45,7 +45,7 @@ var FormValidationComponent = (function () {
             moduleId: module.id,
             selector: 'form-validation',
             templateUrl: 'formValidation.html',
-            directives: [forms_1.REACTIVE_FORM_DIRECTIVES, forms_1.FORM_DIRECTIVES],
+            //directives:[REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES],
             styleUrls: ['formValidation.style.css']
         }), 
         __metadata('design:paramtypes', [forms_1.FormBuilder])

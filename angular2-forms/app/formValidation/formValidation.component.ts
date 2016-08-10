@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, AbstractControl, Validators, REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES} from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, AbstractControl, Validators } from '@angular/forms';
 
 function usernameValidator(control:FormControl):{[s:string]:boolean} {
     if(!control.value.match(/[A-Z | a-z]/g)){
@@ -13,12 +13,11 @@ function useridValidator(control:FormControl):{[s:string]:boolean} {
     }
 }
 
-
 @Component({
     moduleId: module.id,
     selector: 'form-validation',
     templateUrl: 'formValidation.html',
-    directives:[REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES],
+    //directives:[REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES],
     styleUrls:['formValidation.style.css']
 })
 

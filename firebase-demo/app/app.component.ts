@@ -12,14 +12,15 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
   </ul>
   `
 })
-export class AppComponent implements OnInit {
-  items: FirebaseListObservable<any[]>;
-  
-  constructor(private af:AngularFire){}
 
-  ngOnInit(){
-    this.items = this.af.database.list('')
-    console.log("data: ",this.items)
-  }
+export class AppComponent implements OnInit {
+    items: FirebaseListObservable<any[]>;
+    
+    constructor(private af:AngularFire){}
+
+    ngOnInit(){
+      this.items = this.af.database.list('')
+      console.log("data: ",this.items)
+    }
 
  }

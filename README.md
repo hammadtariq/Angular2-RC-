@@ -1,4 +1,4 @@
-# Angular2 RC Demos Using Typescript
+# Angular2 RC5 Demos Using Typescript
 some usefull demos to quickly start with angular 2 RC
 
 # Run Project 

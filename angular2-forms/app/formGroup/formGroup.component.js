@@ -27,7 +27,6 @@ var FormGroupComponent = (function () {
             moduleId: module.id,
             selector: 'form-group',
             templateUrl: 'formGroup.html',
-            directives: [forms_1.REACTIVE_FORM_DIRECTIVES, forms_1.FORM_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [forms_1.FormBuilder])
     ], FormGroupComponent);

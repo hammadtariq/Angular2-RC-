@@ -1,9 +1,7 @@
-import { bootstrap }    from '@angular/platform-browser-dynamic';
-import { provideForms } from '@angular/forms';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import { AppComponent } from './app.component';
+import { AppModule } from './app.module';
 
-bootstrap(AppComponent,[
-    provideForms()
-    ])
+platformBrowserDynamic().bootstrapModule(AppModule)
     .catch((err:any) => console.error("error from bootstrap: ",err));
+

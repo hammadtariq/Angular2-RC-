@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES} from '@angular/forms';
+import { FormGroup, FormBuilder} from '@angular/forms';
 
 @Component({
     moduleId: module.id,
     selector: 'form-group',
     templateUrl: 'formGroup.html',
-    directives:[REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES]
 })
+
 export class FormGroupComponent implements OnInit {
     myForm:FormGroup;
     

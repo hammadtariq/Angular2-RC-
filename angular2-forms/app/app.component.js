@@ -9,9 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var simpleForm_component_1 = require('./simpleForm/simpleForm.component');
-var formGroup_component_1 = require('./formGroup/formGroup.component');
-var formValidation_component_1 = require('./formValidation/formValidation.component');
 var AppComponent = (function () {
     function AppComponent() {
     }
@@ -20,7 +17,6 @@ var AppComponent = (function () {
             moduleId: module.id,
             selector: 'my-app',
             templateUrl: 'app.html',
-            directives: [simpleForm_component_1.SimpleFormComponent, formGroup_component_1.FormGroupComponent, formValidation_component_1.FormValidationComponent],
             styles: ["\n  .columns{\n      float:left;\n      padding:50px;\n      border:1px solid blue;\n  }\n  .center{\n    text-align:center;\n  }\n\n  "]
         }), 
         __metadata('design:paramtypes', [])
