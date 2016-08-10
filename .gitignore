@@ -1,5 +1,4 @@
-angular2-quickstart/node_modules
-angular2-webpack/node_modules
-angular2-forms/node_modules
-firebase-demo/node_modules
-angular2-quickstart/.log
+helloworld/node_modules
+helloworld-webpack/node_modules
+forms/node_modules
+todolist-firebase/node_modules
