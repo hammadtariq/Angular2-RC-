@@ -1,5 +1,5 @@
-# Angular2 RC5 Demos Using Typescript
-some usefull demos to quickly start with angular 2 RC
+# Angular2 RC5 Samples Using Typescript
+Some basic samples to quickly start with Angular 2
 
 # Run Project 
 git clone https://github.com/hammadtariq/Angular2-rc-demo  
