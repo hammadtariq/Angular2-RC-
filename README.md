@@ -2,7 +2,7 @@
 Some basic samples to quickly start with Angular 2
 
 # Run Project 
-git clone https://github.com/hammadtariq/Angular2-rc-demo  
+git clone https://github.com/hammadtariq/Angular2-Samples  
 cd specifiedfolder  
 ~ npm install  
 ~ npm start  
