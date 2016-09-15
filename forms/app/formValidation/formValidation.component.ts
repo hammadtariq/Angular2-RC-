@@ -30,7 +30,7 @@ export class FormValidationComponent implements OnInit {
         this.myForm = fb.group({
             'username' : ['', Validators.compose([Validators.required,usernameValidator])],
                 'userid': ['', Validators.compose([Validators.required,useridValidator])],
-                'productname':['']
+                //'productname':['']
             })
         //for single validation
         // this.myForm = fb.group({

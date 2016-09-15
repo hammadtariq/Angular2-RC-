@@ -15,10 +15,10 @@
             <div *ngIf="myForm.controls['userid'].hasError('invalidUserid') && myForm.controls['userid'].touched">userid should be a numeric value</div>
         </div>
         <!--two way binded field-->
-        <div class="field">
+        <!--<div class="field">
             <label for="pname">Product Name:</label>
             <input id='pname' type="text" [formControl]="myForm.find('productname')" [(ngModel)]="productname">
-        </div>
+        </div>-->
         <input type="submit" [disabled]="!myForm.valid" value="Submit Me">
         <div *ngIf="!myForm.valid && myForm.dirty">some form fields are invalid</div>
     </form>

@@ -25,7 +25,6 @@ var FormValidationComponent = (function () {
         this.myForm = fb.group({
             'username': ['', forms_1.Validators.compose([forms_1.Validators.required, usernameValidator])],
             'userid': ['', forms_1.Validators.compose([forms_1.Validators.required, useridValidator])],
-            'productname': ['']
         });
         //for single validation
         // this.myForm = fb.group({
