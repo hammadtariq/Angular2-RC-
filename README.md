@@ -1,5 +1,5 @@
-# Angular2 RC5 Samples Using Typescript
-Some basic samples to quickly start with Angular 2
+# Angular 2.0 Samples Using Typescript
+Some basic samples to quickly start with Angular 2.0 final release
 
 # Run Project 
 git clone https://github.com/hammadtariq/Angular2-Samples  
