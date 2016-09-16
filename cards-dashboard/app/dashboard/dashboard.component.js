@@ -18,7 +18,10 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.dashService.getLogs()
-            .subscribe(function (res) { return _this.cards = res; }, function () { return console.log("ERROR"); }, function () { return console.log("Cards: ", _this.cards); });
+            .subscribe(function (res) { return _this.cards = res; }, function () {
+            alert("ERROR 503: Server is not responding right now.");
+            console.log("ERROR");
+        }, function () { return console.log("Cards: ", _this.cards); });
     };
     DashboardComponent = __decorate([
         core_1.Component({

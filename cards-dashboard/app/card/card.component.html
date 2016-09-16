@@ -1,5 +1,5 @@
-<div [style.background-color]="getRandomColor()" style="height:5px;"></div>
-<div class="card" title="Click to open">
+<div [style.background-color]="sideColor" style="height:5px;"></div>
+<div class="card" title="Click to toggle">
     <div [ngClass]="showDetails ? 'card__title card__title--is-open' : 'card__title'" (click)="toggleDetails()">
         {{type}}
     </div>

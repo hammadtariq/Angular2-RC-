@@ -15,10 +15,12 @@ export class CardComponent implements OnInit {
 
   showDetails:boolean
   count:number
-
+  sideColor:string
+  
   ngOnInit(){
     this.showDetails = false;
     this.count = 0;
+    this.sideColor = this.getRandomColor()
   }
 
   getRandomColor(){

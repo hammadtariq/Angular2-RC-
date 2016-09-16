@@ -1,2 +1,2 @@
-# AngularFire Demo 
-Retrieving data in realtime from firebase
+# AngularFire2 Demo 
+Retrieving data from a realtime database "Firebase" using AngularFire2

@@ -3,8 +3,6 @@ import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 
-import { Cards } from './logs';
-
 const API_URL = 'http://localhost:4000';  // URL to web api
 
 @Injectable()

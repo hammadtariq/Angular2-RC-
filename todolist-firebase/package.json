@@ -1,6 +1,8 @@
 {
   "name": "angular2-quickstart",
   "version": "1.0.0",
+  "author":"Hammad Tariq<hammadtariq65@gmail.com>",
+  "keywords":["angular","2","todo","list","firebase","angularfire"],
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "lite": "lite-server",

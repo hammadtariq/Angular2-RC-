@@ -15,6 +15,7 @@ var CardComponent = (function () {
     CardComponent.prototype.ngOnInit = function () {
         this.showDetails = false;
         this.count = 0;
+        this.sideColor = this.getRandomColor();
     };
     CardComponent.prototype.getRandomColor = function () {
         var letters = '0123456789ABCDEF';

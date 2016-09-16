@@ -17,7 +17,10 @@ export class DashboardComponent implements OnInit {
     this.dashService.getLogs()
     .subscribe(
       res => this.cards = res,
-      () => console.log("ERROR"),
+      () => {
+        alert("ERROR 503: Server is not responding right now.");
+        console.log("ERROR")
+      },
       () => console.log("Cards: ",this.cards)
       );
   }
