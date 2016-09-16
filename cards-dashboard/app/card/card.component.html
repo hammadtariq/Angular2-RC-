@@ -1,0 +1,15 @@
+<div [style.background-color]="getRandomColor()" style="height:5px;"></div>
+<div class="card" title="Click to open">
+    <div [ngClass]="showDetails ? 'card__title card__title--is-open' : 'card__title'" (click)="toggleDetails()">
+        {{type}}
+    </div>
+    <div class="card__details" *ngIf="showDetails">
+        <ul>
+            <li>id: {{id}}</li>
+            <li>attempts: {{attempts.max}}</li>
+            <li>duration: {{duration || 0}} seconds ago</li>
+            <li>created: {{created}}</li>
+            <li>updated: {{updated}}</li>
+        </ul>
+    </div>
+</div>
