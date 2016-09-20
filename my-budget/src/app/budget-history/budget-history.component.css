@@ -1,0 +1,9 @@
+.historyTable{
+    width: 100%;
+    padding: 20px;
+}
+
+.tRow{
+    padding: 20px;
+    border: 1px solid lightslategray;
+}

@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+
+.main{
+    background-color: #172727;
+    margin: 0 auto;
+    height: auto !important;
+    min-height: 100%;
+    text-align: center;
+    padding: 100px;
+}
