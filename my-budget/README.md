@@ -1,4 +1,6 @@
-# BudgetYourself
+# My Budget
+
+This app uses Firebase SDK to retrieve data and angular material design for UI 
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.14.
 
