@@ -1,6 +1,8 @@
 {
   "name": "budget-yourself",
   "version": "0.0.0",
+  "author": "Hammad Tariq<hammadtariq65@gmail.com>",
+  "keywords": ["angular","2","firebase","sdk","material","design"]
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
