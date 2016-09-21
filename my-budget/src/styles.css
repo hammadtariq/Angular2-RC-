@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 body{
-    background-color: #172727;
+    background-color: #FFF9C4;
     margin: 0 auto;
     text-align: center;
     height:auto
@@ -9,4 +9,13 @@ body{
 
 .main{
     padding: 10px;
+}
+
+.toolbar{
+    background-color:#FFCB2E;
+    color:white;
+}
+
+.btns{
+    background: #FFFF00;
 }

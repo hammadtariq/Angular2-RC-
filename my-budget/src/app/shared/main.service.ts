@@ -55,10 +55,7 @@ export class MainService {
     const date = new Date();
     let currentMonth = monthNames[date.getMonth()];
     let currentYear = date.getFullYear();
-    const totalDays = this.daysInMonth(date.getMonth() + 1, date.getFullYear());
-    const spendPerDay = Math.floor(budget / totalDays);
-    console.log('total days: ', totalDays);
-    console.log('spend per days: ', spendPerDay);
+    const spendPerDay = Math.floor(budget / this.leftDays());
     let userBudgetRef = 'budgetHistory/' + username + '' + currentYear + '/' + currentMonth;
     database.ref(userBudgetRef).update({
       totalBudget: budget,
@@ -77,18 +74,15 @@ export class MainService {
     return database.ref(budgetRef).once('value');
   }
 
-  todaySpended(budgetRef, todaySpended) {
+  todaySpended(budgetRef, item, todaySpended) {
     return new Promise((resolve, reject) => {
         let date = new Date();
-        // let currentDate = date.getDate() + '';
-        // let currentMonth = monthNames[date.getMonth()];
-        // let day = currentDate + '' + currentMonth;
-        database.ref(budgetRef + '/Days/' + date).once('value', function(snapshot) {
+        database.ref(budgetRef + '/Days/' + date).once('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
               resolve('Todays spended amount already added');
             }else {
-              database.ref(budgetRef + '/Days/' + date).set({money: todaySpended});
+              database.ref(budgetRef + '/Days/' + date).set({item: item, money: todaySpended});
               reject('Todays spended amount successfully added');
             }
         });
@@ -97,13 +91,7 @@ export class MainService {
   }
 
   updateBudget(budgetRef, updatedBudget) {
-    const date = new Date();
-    // let currentMonth = monthNames[date.getMonth()];
-    // let currentYear = date.getFullYear();
-    const totalDays = this.daysInMonth(date.getMonth() + 1, date.getFullYear());
-    const leftDays = totalDays - date.getDate();
-    const spendPerDay = Math.floor(updatedBudget / leftDays);
-    console.log('total days: ', leftDays);
+    const spendPerDay = Math.floor(updatedBudget / this.leftDays());
     console.log('spend per days: ', spendPerDay);
     database.ref(budgetRef).update({
       updatedBudget: updatedBudget,
@@ -153,6 +141,17 @@ export class MainService {
         });
     });
 
+  }
+
+  logout() {
+    window.localStorage.clear();
+    this.router.navigate(['/']);
+  }
+
+  leftDays() {
+    const date = new Date();
+    const totalDays = this.daysInMonth(date.getMonth() + 1, date.getFullYear());
+    return (totalDays - (date.getDate() + 1));
   }
 
 }

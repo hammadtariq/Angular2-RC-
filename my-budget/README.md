@@ -1,16 +1,10 @@
-<<<<<<< HEAD
-# BudgetYourself
-This project uses firebase SDK, angular material 2, routing and it's a progressive web app. 
-=======
 # My Budget
+This project uses firebase sdk, angular material 2, routing and it's aprogressive web app.
 
-This app uses Firebase SDK to retrieve data and angular material design for UI 
-
->>>>>>> 3e83db1a687f1cff41938e217afc1120f4da6a74
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.14.
+This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.15.
 
 #Demo
-https://todo-list-8f989.firebaseio.com
+https://todo-list-8f989.firebaseapp.com
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

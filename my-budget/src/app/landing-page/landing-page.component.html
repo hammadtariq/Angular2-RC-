@@ -2,7 +2,7 @@
   <span>My Budget</span>
 </md-toolbar>
 
-<div layout="row" layout-padding layout-margin layout-fill style="min-height: 224px;">
+<div layout="row" layout-padding layout-margin layout-fill style="min-height: 224px; margin-top: 20vh;">
   <md-card flex>
     <md-card-header>
         <md-card-title>Manage your monthly budget easily</md-card-title>
@@ -10,7 +10,7 @@
     <md-card-content>
           <md-input class="username-input" type="text" name="username" #username (keyup.enter)="getStarted(username.value)" placeholder="Enter your name">
           </md-input>
-          <button md-raised-button color="primary" *ngIf="username.value !== ''" (click)="getStarted(username.value)">Get Started</button>
+          <button md-raised-button color="warn" *ngIf="username.value !== ''" (click)="getStarted(username.value)">Get Started</button>
     </md-card-content>
   </md-card>
   

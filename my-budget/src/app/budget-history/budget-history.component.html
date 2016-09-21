@@ -1,20 +1,26 @@
+<md-toolbar class="toolbar">
+  <span>My Budget</span>
+</md-toolbar>
+
 <div class="main">
   
   <div style="text-align:left;">
-    <button flex md-raised-button color="primary" routerLink='/today-budget/back'>Back</button>
+    <button flex md-raised-button color="warn" routerLink='/today-budget/back'>Back</button>
   </div>
 
-  <md-card>
-    <div style="margin-left:46%" *ngIf="!dataRecieved"><md-spinner></md-spinner></div>
+  <md-card style="margin-top: 4vh;">
+    <div style="margin-left:46%" *ngIf="!dataRecieved"><md-spinner color="warn"></md-spinner></div>
     <md-card-content *ngIf="dataRecieved">
         <p class="display-2" *ngIf="message">{{message}}</p>
         <table class="historyTable">
           <tr>
             <th class="tRow">Day</th>
-            <th class="tRow">Money</th>
+            <th class="tRow">Item</th>
+            <th class="tRow">Amount</th>
           </tr>
           <tr class="tRow" *ngFor="let item of historyKeys">
             <td class="tRow">{{item | date:"shortDate"}} {{item | date:"HH:mm"}}</td>
+            <td class="tRow">{{history[item].item}}</td>
             <td class="tRow">{{history[item].money}}</td>
           </tr>
         </table>
