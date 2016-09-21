@@ -1,13 +1,6 @@
-<<<<<<< HEAD
-# BudgetYourself
-This project uses firebase SDK, angular material 2, routing and it's a progressive web app. 
-=======
 # My Budget
-
-This app uses Firebase SDK to retrieve data and angular material design for UI 
-
->>>>>>> 3e83db1a687f1cff41938e217afc1120f4da6a74
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.14.
+It's a progressive web app that uses firebase SDK, angular material 2, routing. 
+This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.15.
 
 #Demo
 https://todo-list-8f989.firebaseio.com
