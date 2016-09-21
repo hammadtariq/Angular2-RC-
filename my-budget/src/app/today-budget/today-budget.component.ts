@@ -27,8 +27,7 @@ export class TodayBudgetComponent implements OnInit {
 
   getCurrentDate() {
     const date = new Date();
-    const time = date.getTime();
-    return {date: date, time: time};
+    return date;
   }
 
   getBudgetInfo() {

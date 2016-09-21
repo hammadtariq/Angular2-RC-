@@ -7,6 +7,7 @@ import { routing, appRoutingProviders }  from './app.routing';
 import { MdButtonModule } from '@angular2-material/button';
 import { MdCardModule } from '@angular2-material/card';
 import { MdInputModule } from '@angular2-material/input';
+import { MdToolbarModule } from '@angular2-material/toolbar';
 import { MdProgressCircleModule } from '@angular2-material/progress-circle';
 // Must export the config
 // export const firebaseConfig = {
@@ -38,7 +39,8 @@ import { BudgetHistoryComponent } from './budget-history/budget-history.componen
     HttpModule,
     routing,
     // AngularFireModule.initializeApp(firebaseConfig),
-    MdButtonModule.forRoot(), MdCardModule.forRoot(), MdInputModule.forRoot(), MdProgressCircleModule.forRoot()
+    MdButtonModule.forRoot(), MdCardModule.forRoot(), MdInputModule.forRoot(),
+    MdToolbarModule.forRoot(), MdProgressCircleModule.forRoot()
   ],
   providers: [ appRoutingProviders, MainService, CanActivateViaAuthGuard ],
   bootstrap: [ AppComponent ]

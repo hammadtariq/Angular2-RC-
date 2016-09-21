@@ -1,14 +1,16 @@
-<div class="main">
-  
-  <md-card>
+<md-toolbar class="toolbar">
+  <span>My Budget</span>
+</md-toolbar>
+
+<div layout="row" layout-padding layout-margin layout-fill style="min-height: 224px;">
+  <md-card flex>
     <md-card-header>
-        <md-card-title>BUDGET YOURSELF</md-card-title>
-        <md-card-subtitle>Get daily notification about money you can spent according to your budget</md-card-subtitle>
+        <md-card-title>Manage your monthly budget easily</md-card-title>
     </md-card-header>
     <md-card-content>
-          <md-input class="username-input" type="text" name="username"  #username (keyup.enter)="getStarted(username.value)" placeholder="enter your username">
+          <md-input class="username-input" type="text" name="username" #username (keyup.enter)="getStarted(username.value)" placeholder="Enter your name">
           </md-input>
-          <button md-raised-button color="primary" (click)="getStarted(username.value)">Get Started</button>
+          <button md-raised-button color="primary" *ngIf="username.value !== ''" (click)="getStarted(username.value)">Get Started</button>
     </md-card-content>
   </md-card>
   

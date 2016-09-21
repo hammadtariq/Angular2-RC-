@@ -141,6 +141,10 @@ export class MainService {
     return window.localStorage['budgetRef'];
   }
 
+  cancelEdit() {
+    this.router.navigate(['/today-budget', this.budgetRef]);
+  }
+
   getBudget() {
     return new Promise((resolve, reject) => {
         database.ref(this.budgetRef).once('value', function(snapshot) {

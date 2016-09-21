@@ -6,10 +6,10 @@ webpackJsonp([1,2],{
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(664);
+var content = __webpack_require__(666);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(700)(content, {});
+var update = __webpack_require__(702)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -27,22 +27,22 @@ if(false) {
 
 /***/ },
 
-/***/ 664:
+/***/ 666:
 /***/ function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(665)();
+exports = module.exports = __webpack_require__(667)();
 // imports
 
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n\n.main{\n    background-color: #172727;\n    margin: 0 auto;\n    height: auto !important;\n    min-height: 100%;\n    text-align: center;\n    padding: 100px;\n}", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n\nbody{\n    background-color: #172727;\n    margin: 0 auto;\n    text-align: center;\n    height:auto\n}\n\n.main{\n    padding: 10px;\n}\n", ""]);
 
 // exports
 
 
 /***/ },
 
-/***/ 665:
+/***/ 667:
 /***/ function(module, exports) {
 
 /*
@@ -99,7 +99,7 @@ module.exports = function() {
 
 /***/ },
 
-/***/ 700:
+/***/ 702:
 /***/ function(module, exports) {
 
 /*
@@ -352,7 +352,7 @@ function updateLink(linkElement, obj) {
 
 /***/ },
 
-/***/ 703:
+/***/ 705:
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(386);
@@ -360,5 +360,5 @@ module.exports = __webpack_require__(386);
 
 /***/ }
 
-},[703]);
+},[705]);
 //# sourceMappingURL=styles.map

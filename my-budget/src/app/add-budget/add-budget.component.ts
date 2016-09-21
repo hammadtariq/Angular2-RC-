@@ -16,11 +16,13 @@ export class AddBudgetComponent implements OnInit {
   currentDate: Date;
   username: ActivatedRoute;
   oldBudget: any = '';
+  btnLabel: string = 'Add';
+  editFlag: boolean;
   constructor(private route: ActivatedRoute, private mainService: MainService) { }
 
   ngOnInit() {
       let { params } = this.route.snapshot;
-      params['username'] === 'edit' && this.getBudget();
+      params['username'] === 'edit' && (this.editFlag = true, this.getBudget());
       this.username = params['username'] !== 'edit' ?
       params['username'] : localStorage['username'];
       this.currentDate = this.getCurrentDate();
@@ -38,8 +40,17 @@ export class AddBudgetComponent implements OnInit {
 
   totalBudget(budget) {
     console.log('total budget: ', budget);
-    this.route.snapshot.params['username'] === 'edit' ?
-    this.mainService.editBudget(this.username, budget) : this.mainService.calculateBudget(this.username, budget);
+    this.mainService.calculateBudget(this.username, budget);
+    // this.route.snapshot.params['username'] === 'edit' ?
+    // this.mainService.editBudget(this.username, budget) : this.mainService.calculateBudget(this.username, budget);
+  }
+
+  editBudget(budget) {
+    this.mainService.editBudget(this.username, budget);
+  }
+
+  cancelEdit(){
+    this.mainService.cancelEdit()
   }
 
   getCurrentDate() {

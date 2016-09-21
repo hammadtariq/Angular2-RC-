@@ -1,4 +1,9 @@
 .username-input{
     padding: 10px;
-    width: 96%;
+    width: 90%;
+}
+
+.toolbar{
+    background-color:#009688;
+    color:white;
 }

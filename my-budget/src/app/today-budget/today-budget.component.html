@@ -1,18 +1,19 @@
-<div class="main">
-  <button md-raised-button color="primary" routerLink='/add-budget/edit'>Edit Budget</button>
-  <button md-raised-button color="primary" routerLink='/budget-history'>Budget History</button>
- 
-  <md-card>
-    <div style="margin-left:46%" *ngIf="!dataRecieved"><md-spinner></md-spinner></div>
+<div class="main" layout="row">
+  <div layout="row">
+    <button flex="auto" md-raised-button color="primary" class="btn" routerLink='/add-budget/edit'>Update Budget</button>
+    <button flex="auto" md-raised-button color="primary" class="btn" routerLink='/budget-history'>Budget History</button>
+  </div>
+  
+  <md-card layout="row" layout-align="center center">
+    <div style="margin-left:40%" *ngIf="!dataRecieved"><md-spinner></md-spinner></div>
     <md-card-content *ngIf="dataRecieved">
-      <p align='right'>{{currentDate.date | date}} {{currentDate.time | date:"HH:mm"}}</p>
+      <p align='right'>{{currentDate | date}}</p>
       <p></p>
-      <p class="md-body-2">Total Budget for this month is <span class="amount">{{budgetInfo.total}}</span></p>
-      <p class="md-body-2" *ngIf="budgetInfo.update != '' ">Total budget left for this month is <span style="color:red">{{budgetInfo.update}}</span></p>
-      <h3 class="md-display-2">Money you can spend everyday of this month is <span style="color:green">{{budgetInfo.spend}}</span></h3>
-          <md-input class="budget-input" type="number" #money (keyup.enter)="totalSpended(money.value)" placeholder="Please enter money you spended till now.">
-            <span md-prefix>Rs&nbsp;</span>
-            <span md-suffix>.00</span>
+      <p class="md-body-2">Total Budget: <span class="amount">{{budgetInfo.total}} Rs</span></p>
+      <p class="md-body-2" *ngIf="budgetInfo.update != '' ">Total Budget Left: <span style="color:red">{{budgetInfo.update}} Rs</span></p>
+      <h3 class="md-display-2">Amount you can spend in remaining days: <span style="color:green">{{budgetInfo.spend}} Rs</span></h3>
+          <md-input class="budget-input" type="number" #money (keyup.enter)="totalSpended(money.value)" placeholder="Amount you spended till now">
+            <span md-suffix>&nbsp;Rs</span>
           </md-input>
           <button md-raised-button color="primary" (click)="totalSpended(money);">Submit</button>
           <p class="md-body-2">{{message}}</p>

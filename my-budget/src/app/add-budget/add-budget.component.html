@@ -1,14 +1,17 @@
-<div class="main">
+<div class="main" layout-align="center center">
 
   <md-card>
     <md-card-content>
-          <!--<md-input class="budget-input" type="number" name="budget" #budget [placeholder]="placeholderText">
-          </md-input>-->
-          <md-input [value]="oldBudget" class="budget-input" placeholder="amount" align="end" #budget (keyup.enter)="totalBudget(budget.value)" [placeholder]="placeholderText">
-            <span md-prefix>Rs&nbsp;</span>
-            <span md-suffix>.00</span>
+          
+          <md-input [value]="oldBudget" class="budget-input" placeholder="Amount" align="end" #budget (keyup.enter)="totalBudget(budget.value)" [placeholder]="placeholderText">
+            <span md-suffix>&nbsp;Rs</span>
           </md-input>
-          <button md-raised-button color="primary" (click)="totalBudget(budget.value);">Add</button>
+          <button *ngIf="!editFlag" md-raised-button color="primary" (click)="totalBudget(budget.value);">Add</button>
+          <div *ngIf="editFlag">
+            <button md-raised-button color="primary" (click)="editBudget(budget.value);">Save</button>
+            <button md-raised-button color="primary" (click)="cancelEdit();">Cancel</button>  
+          </div>
+          
     </md-card-content>
   </md-card>
 
