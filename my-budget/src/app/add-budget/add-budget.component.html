@@ -8,7 +8,7 @@
   <md-card style="margin-top: 20vh;">
     <md-card-content>
           
-          <md-input [value]="oldBudget.totalBudget" class="budget-input" placeholder="Amount" align="end" #budget (keyup.enter)="totalBudget(budget.value)" [placeholder]="placeholderText">
+          <md-input [value]="oldBudget.totalBudget" class="budget-input" placeholder="Amount" type="number" #budget (keyup.enter)="totalBudget(budget.value)" [placeholder]="placeholderText">
             <span md-suffix>&nbsp;Rs</span>
           </md-input>
           <button *ngIf="!editFlag" md-raised-button color="warn" (click)="totalBudget(budget.value);">Add</button>

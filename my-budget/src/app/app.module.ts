@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { routing, appRoutingProviders }  from './app.routing';
 // import { AngularFireModule } from 'angularfire2';
@@ -36,6 +36,7 @@ import { BudgetHistoryComponent } from './budget-history/budget-history.componen
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     routing,
     // AngularFireModule.initializeApp(firebaseConfig),

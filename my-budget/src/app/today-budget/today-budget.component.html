@@ -22,20 +22,32 @@
       <p class="md-body-2">Total Budget: <span class="amount">{{budgetInfo.total}} Rs</span></p>
       <p class="md-body-2" *ngIf="budgetInfo.update != '' ">Total Budget Left: <span style="color:red">{{budgetInfo.update}} Rs</span></p>
       <h3 class="md-display-2">Amount you can spend in remaining days: <span style="color:green">{{budgetInfo.spend}} Rs</span></h3>
-      <div>
-        <select #selectedCategory>
-          <option *ngFor="let category of categories" [value]="category">
-            {{category}}
-          </option>
-        </select>  
-      </div>
-      <md-input class="budget-input" type="text" #item (keyup.enter)="totalSpended(selectedCategory,item,money)" placeholder="Item Name">
-      </md-input>
-      <md-input class="budget-input" type="number" #money (keyup.enter)="totalSpended(selectedCategory,item,money)" placeholder="Amount">
-        <span md-suffix>&nbsp;Rs</span>
-      </md-input>
-      <button md-raised-button color="warn" (click)="totalSpended(selectedCategory,item,money);">Submit</button>
-      <p class="md-body-2">{{message}}</p>
+      <form [formGroup]="myForm" (ngSubmit)="totalSpended(myForm);">
+          <div>
+            <select class="selectBox" [formControl]="myForm.controls['category']">
+              <option selected disabled>Choose category</option>
+              <option *ngFor="let category of categories;" [value]="category">
+                {{category}}
+              </option>
+            </select>  
+          </div>
+          <div>
+            <md-input class="budget-input" [formControl]="myForm.controls['itemName']" [class.error]="myForm.controls['itemName'].touched && myForm.controls['itemName'].hasError('invaliditemName')" type="text" placeholder="Item Name">
+            </md-input>
+            <div *ngIf="myForm.controls['itemName'].hasError('required') && myForm.controls['itemName'].touched">item name is required</div>
+            <div *ngIf="myForm.controls['itemName'].hasError('invaliditemName') && myForm.controls['itemName'].dirty">item name should be a text value</div>  
+          </div>
+          <div>
+            <md-input class="budget-input" [formControl]="myForm.controls['amount']" [class.error]="myForm.controls['amount'].touched && myForm.controls['amount'].hasError('invalidAmount')" type="text" placeholder="Amount">
+              <span md-suffix>&nbsp;Rs</span>
+            </md-input>
+            <div *ngIf="myForm.controls['amount'].hasError('required') && myForm.controls['amount'].touched">amount is required</div>
+            <div *ngIf="myForm.controls['amount'].hasError('invalidAmount') && myForm.controls['amount'].dirty">amount should be a numeric value</div>
+          </div>
+          <button md-raised-button color="warn" type="submit" [disabled]="!myForm.valid">Submit</button>
+          <div *ngIf="!myForm.valid && myForm.dirty">Some form field values are invalid</div>
+          <p class="md-body-2">{{message}}</p>
+      </form>
     </md-card-content>
   </md-card>
 

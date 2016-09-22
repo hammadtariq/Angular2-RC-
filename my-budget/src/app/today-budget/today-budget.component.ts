@@ -1,7 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, FormControl, AbstractControl, Validators } from '@angular/forms';
 
 import { MainService } from '../shared/main.service';
+
+
+function itemNameValidator(control: FormControl): {[s: string]: boolean} {
+    if (control.value && !control.value.match(/[A-Z | a-z]/g)) {
+        return {invaliditemName: true};
+    }
+}
+
+function amountValidator(control: FormControl): {[s: string]: boolean} {
+    if (control.value && !control.value.match(/[0-9]/g)) {
+        return {invalidAmount: true};
+    }
+}
 
 @Component({
   selector: 'app-today-budget',
@@ -15,8 +29,15 @@ export class TodayBudgetComponent implements OnInit {
   currentDate: Object;
   dataRecieved: boolean;
   categories: Array<String>;
+  myForm: FormGroup;
+  constructor(fb: FormBuilder, private route: ActivatedRoute, private mainService: MainService) {
+      this.myForm = fb.group({
+          'category' : ['', Validators.required],
+          'itemName' : ['', Validators.compose([Validators.required, itemNameValidator])],
+          'amount': ['', Validators.compose([Validators.required, amountValidator])],
+      });
 
-  constructor(private route: ActivatedRoute, private mainService: MainService) { }
+   }
 
   ngOnInit() {
     this.categories = ['Travel', 'Food', 'Medical', 'Other'];
@@ -28,7 +49,7 @@ export class TodayBudgetComponent implements OnInit {
   }
 
   getBudgetInfo() {
-        this.mainService.moneyToSpend(this.budgetRef)
+      this.mainService.moneyToSpend(this.budgetRef)
         .then( snapshot => {
           console.log('snap : ', snapshot.val());
           let {totalBudget, spendPerDay, updatedBudget} = snapshot.val();
@@ -40,26 +61,24 @@ export class TodayBudgetComponent implements OnInit {
         .catch (err => console.log('err from budget : ', err));
   }
 
-  totalSpended(selectedCategory, item, todaySpended) {
-    console.log('todaySpended: ', todaySpended.value);
-    this.mainService.todaySpended(this.budgetRef, selectedCategory.value, item.value, todaySpended.value)
+  totalSpended(data) {
+    data = data.value;
+    console.log('todaySpended: ', data);
+    this.mainService.todaySpended(this.budgetRef, data.category, data.itemName, data.amount)
     .then(
       (res) => {
         this.message = res;
-        todaySpended.value = '';
-        item.value = '';
         setTimeout(() => {
             this.message = '';
         }, 4000);
       },
       (res) => {
+        this.myForm.reset();
         this.message = res;
         setTimeout(() => {
             this.message = '';
         }, 4000);
-        this.updateBudget(todaySpended.value);
-        todaySpended.value = '';
-        item.value = '';
+        this.updateBudget(data.amount);
       });
   }
 
