@@ -1,6 +1,9 @@
 # My Budget
 
-This project uses firebase sdk, angular material 2, routing and it's aprogressive web app.
+This project uses firebase sdk, angular material 2, routing.
+It's a progressive web app so to save it on your mobile choose option add to home screen:
+![alt tag](https://www.dropbox.com/s/p6thdppse0ox8mc/Screenshot_2016-09-22-18-01-14.png?dl=0)
+
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.15.
 
 #Demo
