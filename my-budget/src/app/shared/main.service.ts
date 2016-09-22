@@ -74,7 +74,7 @@ export class MainService {
     return database.ref(budgetRef).once('value');
   }
 
-  todaySpended(budgetRef, item, todaySpended) {
+  todaySpended(budgetRef, category, item, todaySpended) {
     return new Promise((resolve, reject) => {
         let date = new Date();
         database.ref(budgetRef + '/Days/' + date).once('value', (snapshot) => {
@@ -82,7 +82,8 @@ export class MainService {
             if (data) {
               resolve('Todays spended amount already added');
             }else {
-              database.ref(budgetRef + '/Days/' + date).set({item: item, money: todaySpended});
+              database.ref(budgetRef + '/Days/' + date).set({
+                category: category, item: item, money: todaySpended});
               reject('Todays spended amount successfully added');
             }
         });

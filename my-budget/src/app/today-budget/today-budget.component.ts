@@ -14,10 +14,12 @@ export class TodayBudgetComponent implements OnInit {
   message: any = '';
   currentDate: Object;
   dataRecieved: boolean;
+  categories: Array<String>;
 
   constructor(private route: ActivatedRoute, private mainService: MainService) { }
 
   ngOnInit() {
+    this.categories = ['Travel', 'Food', 'Medical', 'Other'];
     let { budgetRef } = this.route.snapshot.params;
     this.dataRecieved = false;
     this.currentDate = this.mainService.leftDays();
@@ -38,9 +40,9 @@ export class TodayBudgetComponent implements OnInit {
         .catch (err => console.log('err from budget : ', err));
   }
 
-  totalSpended(item, todaySpended) {
+  totalSpended(selectedCategory, item, todaySpended) {
     console.log('todaySpended: ', todaySpended.value);
-    this.mainService.todaySpended(this.budgetRef, item.value, todaySpended.value)
+    this.mainService.todaySpended(this.budgetRef, selectedCategory.value, item.value, todaySpended.value)
     .then(
       (res) => {
         this.message = res;

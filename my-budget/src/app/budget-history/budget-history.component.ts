@@ -18,6 +18,10 @@ export class BudgetHistoryComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getHistory();
+  }
+
+  getHistory() {
     this.mainService.getHistory()
     .then((res) => {
       this.history = res;

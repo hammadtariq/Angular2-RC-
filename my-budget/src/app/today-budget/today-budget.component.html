@@ -21,13 +21,20 @@
       <p class="md-body-2">Total Budget: <span class="amount">{{budgetInfo.total}} Rs</span></p>
       <p class="md-body-2" *ngIf="budgetInfo.update != '' ">Total Budget Left: <span style="color:red">{{budgetInfo.update}} Rs</span></p>
       <h3 class="md-display-2">Amount you can spend in remaining days: <span style="color:green">{{budgetInfo.spend}} Rs</span></h3>
-          <md-input class="budget-input" type="text" #item (keyup.enter)="totalSpended(item,money)" placeholder="Item Name">
-          </md-input>
-          <md-input class="budget-input" type="number" #money (keyup.enter)="totalSpended(item,money)" placeholder="Amount">
-            <span md-suffix>&nbsp;Rs</span>
-          </md-input>
-          <button md-raised-button color="warn" (click)="totalSpended(item,money);">Submit</button>
-          <p class="md-body-2">{{message}}</p>
+      <div>
+        <select #selectedCategory>
+          <option *ngFor="let category of categories" [value]="category">
+            {{category}}
+          </option>
+        </select>  
+      </div>
+      <md-input class="budget-input" type="text" #item (keyup.enter)="totalSpended(selectedCategory,item,money)" placeholder="Item Name">
+      </md-input>
+      <md-input class="budget-input" type="number" #money (keyup.enter)="totalSpended(selectedCategory,item,money)" placeholder="Amount">
+        <span md-suffix>&nbsp;Rs</span>
+      </md-input>
+      <button md-raised-button color="warn" (click)="totalSpended(selectedCategory,item,money);">Submit</button>
+      <p class="md-body-2">{{message}}</p>
     </md-card-content>
   </md-card>
 

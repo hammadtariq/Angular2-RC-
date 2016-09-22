@@ -15,11 +15,13 @@
         <table class="historyTable">
           <tr>
             <th class="tRow">Day</th>
+            <th class="tRow">Category</th>
             <th class="tRow">Item</th>
             <th class="tRow">Amount</th>
           </tr>
           <tr class="tRow" *ngFor="let item of historyKeys">
             <td class="tRow">{{item | date:"shortDate"}} {{item | date:"HH:mm"}}</td>
+            <td class="tRow">{{history[item].category}}</td>
             <td class="tRow">{{history[item].item}}</td>
             <td class="tRow">{{history[item].money}}</td>
           </tr>
