@@ -1,5 +1,6 @@
 <md-toolbar class="toolbar">
-  <span>My Budget</span>
+  <span style="margin-right:10px;"><img src="../../images/wallet2.png" style="width:30px;" alt=""></span>
+  <span style="font-family:cursive;">My Budget</span>
 </md-toolbar>
 
 <div class="main">
@@ -10,9 +11,9 @@
 
   <md-card style="margin-top: 4vh;">
     <div style="margin-left:46%" *ngIf="!dataRecieved"><md-spinner color="warn"></md-spinner></div>
-    <md-card-content *ngIf="dataRecieved">
+    <md-card-content *ngIf="dataRecieved" layout="row" style="overflow-x: auto;" >
         <p class="display-2" *ngIf="message">{{message}}</p>
-        <table class="historyTable">
+        <table class="historyTable" layout="row" flex>
           <tr>
             <th class="tRow">Day</th>
             <th class="tRow">Category</th>

@@ -51,17 +51,26 @@ export class MainService {
     });
   }
 
-  calculateBudget(username, budget) {
+  calculateBudget(username, budget, updatedBudget?, editFlag? ) {
     const date = new Date();
     let currentMonth = monthNames[date.getMonth()];
     let currentYear = date.getFullYear();
-    const spendPerDay = Math.floor(budget / this.leftDays());
     let userBudgetRef = 'budgetHistory/' + username + '' + currentYear + '/' + currentMonth;
-    database.ref(userBudgetRef).update({
-      totalBudget: budget,
-      spendPerDay: spendPerDay,
-      updatedBudget: ''
-    });
+    if (!editFlag) {
+        const spendPerDay = Math.floor(budget / this.leftDays());
+        database.ref(userBudgetRef).update({
+          totalBudget: budget,
+          spendPerDay: spendPerDay,
+          updatedBudget: ''
+        });
+    }else {
+        const spendPerDay = Math.floor(updatedBudget / this.leftDays());
+        database.ref(userBudgetRef).update({
+            totalBudget: budget,
+            spendPerDay: spendPerDay,
+            updatedBudget: updatedBudget
+          });
+    }
     window.localStorage['budgetRef'] = userBudgetRef;
     this.router.navigate(['/today-budget', userBudgetRef]);
   }
@@ -119,11 +128,12 @@ export class MainService {
 
   }
 
-  editBudget(username, newBudget) {
+  editBudget(username, newBudget, oldBudget) {
     database.ref(this.budgetRef).update({
       totalBudget: newBudget
     });
-    this.calculateBudget(username, newBudget);
+    const updatedBudget = oldBudget.updatedBudget + Math.abs(newBudget - oldBudget.totalBudget);
+    this.calculateBudget(username, newBudget, updatedBudget, true);
   }
 
   get budgetRef() {

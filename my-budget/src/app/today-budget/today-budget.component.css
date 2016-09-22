@@ -1,5 +1,4 @@
 .budget-input{
-    padding: 10px;
     width: 96%;
 }
 
@@ -18,4 +17,12 @@
 
 .example-fill-remaining-space {
   flex: 1 1 auto;
+}
+
+.selectBox{
+    width: 96%;
+    margin: 15px 0 15px 0;
+    padding: 5px;
+    border-radius: 2px;
+    background: #FFF9C4;
 }

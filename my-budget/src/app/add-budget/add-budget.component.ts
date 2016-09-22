@@ -32,7 +32,7 @@ export class AddBudgetComponent implements OnInit {
     this.mainService.getBudget()
     .then((res) => {
       console.log('old budget: ', res);
-      this.oldBudget = res['totalBudget'];
+      this.oldBudget = res;
     }, (err) => {
       console.log(err);
     });
@@ -46,11 +46,11 @@ export class AddBudgetComponent implements OnInit {
   }
 
   editBudget(budget) {
-    this.mainService.editBudget(this.username, budget);
+    this.mainService.editBudget(this.username, budget, this.oldBudget);
   }
 
-  cancelEdit(){
-    this.mainService.cancelEdit()
+  cancelEdit() {
+    this.mainService.cancelEdit();
   }
 
   getCurrentDate() {
