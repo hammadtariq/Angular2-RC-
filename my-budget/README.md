@@ -1,7 +1,7 @@
 # My Budget
 
-This project uses firebase sdk, angular material 2, routing.
-It's a progressive web app so to save it on your mobile choose option add to home screen:
+This project covers topics <b>Routing, Form validation, firebase sdk and angular material 2</b>
+It's a Progressive web app, so to save it on your mobile open options menu of your browser and choose "add to home screen":
 <div>
 <img src="savemobile.png" alt="screenshot" width="500" height="500">
 </div>
