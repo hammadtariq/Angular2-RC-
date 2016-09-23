@@ -57,7 +57,7 @@
             <md-input class="budget-input" [formControl]="myForm.controls['amount']" [class.error]="myForm.controls['amount'].touched && myForm.controls['amount'].hasError('invalidAmount')" type="text" placeholder="Amount">
               <span md-suffix>&nbsp;Rs</span>
             </md-input>
-            <div class="err" *ngIf="myForm.controls['amount'].value > budgetInfo.update">you are out of your budget for this amount, please update your budget</div>
+            <div class="err" *ngIf="myForm.controls['amount'].value > budgetCheck()">you are out of your budget for this amount, please update your budget</div>
             <div class="err" *ngIf="myForm.controls['amount'].hasError('required') && myForm.controls['amount'].touched">amount is required</div>
             <div class="err" *ngIf="myForm.controls['amount'].hasError('invalidAmount') && myForm.controls['amount'].dirty">amount should be a numeric value</div>
           </div>

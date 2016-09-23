@@ -65,12 +65,16 @@ export class TodayBudgetComponent implements OnInit {
         .catch (err => console.log('err from budget : ', err));
   }
 
+  budgetCheck() {
+    return this.budgetInfo.update === '' ? this.budgetInfo.total : this.budgetInfo.update;
+  }
+
   totalSpended(data) {
-    this.dataRecieved = false;
     data = data.value;
-    if (data.amount > this.budgetInfo.update) {return false; };
+    if (data.amount > this.budgetCheck()) {return false; };
     console.log('todaySpended: ', data);
     data.quantity && (data.quantity = data.quantity + ' ' + data.unit);
+    this.dataRecieved = false;
     this.mainService.todaySpended(this.budgetRef, data.category, data.itemName, data.amount, data.quantity)
     .then(
       (res) => {
