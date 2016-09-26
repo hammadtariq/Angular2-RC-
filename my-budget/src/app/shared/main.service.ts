@@ -9,11 +9,6 @@ export const firebaseConfig = {
   authDomain: 'todo-list-8f989.firebaseapp.com',
   databaseURL: 'https://todo-list-8f989.firebaseio.com',
   storageBucket: 'todo-list-8f989.appspot.com'
-  // apiKey: "AIzaSyDVsgU-VA6Jyqqk1krgejl-RUdVwqgNj1c",
-  //   authDomain: "budget-25304.firebaseapp.com",
-  //   databaseURL: "https://budget-25304.firebaseio.com",
-  //   storageBucket: "budget-25304.appspot.com",
-  //   messagingSenderId: "733600158677"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -50,23 +45,17 @@ export class MainService {
     });
   }
 
-  calculateBudget(username, budget, updatedBudget?, editFlag? ) {
+  calculateBudget(username, income, saving) {
     let userBudgetRef = 'budgetHistory/' + username + '' + this.currentYear + '/' + this.currentMonth;
-    if (!editFlag) {
-        const spendPerDay = Math.floor(budget / this.leftDays());
-        database.ref(userBudgetRef).update({
-          totalBudget: budget,
-          spendPerDay: spendPerDay,
-          updatedBudget: ''
-        });
-    }else {
-        const spendPerDay = Math.floor(updatedBudget / this.leftDays());
-        database.ref(userBudgetRef).update({
-            totalBudget: budget,
-            spendPerDay: spendPerDay,
-            updatedBudget: updatedBudget
-          });
-    }
+    let budget = income - saving;
+    const spendPerDay = Math.floor(budget / this.leftDays());
+    database.ref(userBudgetRef).update({
+      totalIncome: income,
+      totalSaving: saving,
+      totalBudget: budget,
+      spendPerDay: spendPerDay,
+      updatedBudget: ''
+    });
     window.localStorage['budgetRef'] = userBudgetRef;
     let budgetRefYearly = 'budgetHistory/' + username + '' + this.currentYear;
     window.localStorage['budgetRefYearly'] = budgetRefYearly;
@@ -85,24 +74,9 @@ export class MainService {
     let date = new Date();
     return database.ref(budgetRef + '/Days/' + date).set({
       category: category, item: item, quantity: quantity, money: todaySpended});
-    // reject('Item successfully added');
-    // return new Promise((resolve, reject) => {
-    //     let date = new Date();
-    //     database.ref(budgetRef + '/Days/' + date).once('value', (snapshot) => {
-    //         const data = snapshot.val();
-    //         if (data) {
-    //           resolve('Todays spended amount already added');
-    //         }else {
-    //           database.ref(budgetRef + '/Days/' + date).set({
-    //             category: category, item: item, money: todaySpended});
-    //           reject('Item successfully added');
-    //         }
-    //     });
-    // });
-
   }
 
-  updateBudget(budgetRef, updatedBudget) {
+  updatedBudget(budgetRef, updatedBudget) {
     const spendPerDay = Math.floor(updatedBudget / this.leftDays());
     console.log('spend per days: ', spendPerDay);
     database.ref(budgetRef).update({
@@ -111,26 +85,47 @@ export class MainService {
     });
   }
 
-  editBudget(username, newBudget, oldBudget) {
-    database.ref(this.budgetRef).update({
-      totalBudget: newBudget
-    });
-    const updatedBudget = oldBudget.updatedBudget + Math.abs(newBudget - oldBudget.totalBudget);
-    this.calculateBudget(username, newBudget, updatedBudget, true);
+  editIncome(username, newIncome, newSaving, oldIncome) {
+    if (newIncome === oldIncome.totalIncome && newSaving === oldIncome.totalSaving) {
+       this.router.navigate(['/today-budget', this.budgetRef]);
+       return false;
+    }
+    let newBudget = newIncome - newSaving;
+    const updatedBudget = oldIncome.updatedbudget ?
+      oldIncome.updatedbudget + Math.abs(newBudget - oldIncome.totalBudget)
+      : Math.abs(newBudget - oldIncome.totalBudget);
+    if (updatedBudget) {
+      const spendPerDay = Math.floor(updatedBudget / this.leftDays());
+      database.ref(this.budgetRef).update({
+        totalIncome: newIncome,
+        totalSaving: newSaving,
+        spendPerDay: spendPerDay,
+        totalBudget: newBudget,
+        updatedBudget: updatedBudget
+      });
+    }else {
+      database.ref(this.budgetRef).update({
+        totalIncome: newIncome,
+        totalSaving: newSaving,
+        spendPerDay: oldIncome.spendPerDay,
+        totalBudget: newBudget,
+        updatedBudget: oldIncome.updatedBudget
+      });
+    }
+    this.router.navigate(['/today-budget', this.budgetRef]);
   }
 
   cancelEdit() {
     this.router.navigate(['/today-budget', this.budgetRef]);
   }
 
-  getBudget() {
+  getIncome() {
     return new Promise((resolve, reject) => {
         database.ref(this.budgetRef).once('value', function(snapshot) {
-          console.log('budget obj: ', snapshot.val());
-          snapshot.val() ? resolve(snapshot.val()) : reject('error in getting budget');
+          console.log('Income obj: ', snapshot.val());
+          snapshot.val() ? resolve(snapshot.val()) : reject('error in getting Income');
         });
     });
-
   }
 
   logout() {
@@ -153,8 +148,6 @@ export class MainService {
           database.ref(this.budgetRefYearly + '/' + this.currentMonth).once('value', (snapshot) => {
             snapshot.val() ? this.router.navigate(['/today-budget', this.budgetRef]) :
             this.router.navigate(['/add-budget', this.username]);
-            // console.log('budget obj: ', snapshot.val());
-            // snapshot.val() ? resolve(snapshot.val()) : reject('error in getting budget');
           });
           return false;
         }else {

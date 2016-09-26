@@ -1,21 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { MainService } from '../shared/main.service';
-
-
-function itemNameValidator(control: FormControl): {[s: string]: boolean} {
-    if (control.value && !control.value.match(/[A-Z | a-z]/g)) {
-        return {invaliditemName: true};
-    }
-}
-
-function amountValidator(control: FormControl): {[s: string]: boolean} {
-    if (control.value && !control.value.match(/[0-9]/g)) {
-        return {invalidAmount: true};
-    }
-}
+import { itemNameValidator, amountValidator  } from '../shared/form.validators';
 
 @Component({
   selector: 'app-today-budget',
@@ -23,7 +11,7 @@ function amountValidator(control: FormControl): {[s: string]: boolean} {
   styleUrls: ['./today-budget.component.css']
 })
 export class TodayBudgetComponent implements OnInit {
-  budgetInfo = {total: '', spend: '', update: ''};
+  budgetInfo = {income: '', budget: '', spend: '', update: ''};
   budgetRef: string;
   message: any = '';
   currentDate: Object;
@@ -56,9 +44,9 @@ export class TodayBudgetComponent implements OnInit {
       this.mainService.moneyToSpend(this.budgetRef)
         .then( snapshot => {
           console.log('snap : ', snapshot.val());
-          let {totalBudget, spendPerDay, updatedBudget} = snapshot.val();
+          let {totalIncome, totalBudget, spendPerDay, totalSaving, updatedBudget} = snapshot.val();
           this.budgetInfo = Object.assign({}, this.budgetInfo, {
-            total: totalBudget, spend: spendPerDay, update: updatedBudget
+            income: totalIncome, budget: totalBudget, saving: totalSaving, spend: spendPerDay, update: updatedBudget
           });
           this.dataRecieved = true;
         })
@@ -66,7 +54,7 @@ export class TodayBudgetComponent implements OnInit {
   }
 
   budgetCheck() {
-    return this.budgetInfo.update === '' ? this.budgetInfo.total : this.budgetInfo.update;
+    return this.budgetInfo.update === '' ? this.budgetInfo.budget : this.budgetInfo.update;
   }
 
   totalSpended(data) {
@@ -97,10 +85,11 @@ export class TodayBudgetComponent implements OnInit {
       });
   }
 
+  // update spend per day amount after adding info of item 
   updateBudget(todaySpended) {
-    let { total, update }: any = this.budgetInfo;
-    let updatedBudget = update === '' ? (total - todaySpended) : (update - todaySpended);
-    this.mainService.updateBudget(this.budgetRef, updatedBudget);
+    let { budget, update }: any = this.budgetInfo;
+    let updatedBudget = update === '' ? (budget - todaySpended) : (update - todaySpended);
+    this.mainService.updatedBudget(this.budgetRef, updatedBudget);
     this.getBudgetInfo();
   }
 

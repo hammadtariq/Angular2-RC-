@@ -24,3 +24,8 @@ body{
     width:30px;
     margin-right:10px;
 }
+
+.err{
+    color: red;
+    margin: 3px;
+}
