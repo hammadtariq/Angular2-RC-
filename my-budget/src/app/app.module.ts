@@ -3,11 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { MdButtonModule } from '@angular2-material/button';
-import { MdCardModule } from '@angular2-material/card';
-import { MdInputModule } from '@angular2-material/input';
-import { MdToolbarModule } from '@angular2-material/toolbar';
-import { MdProgressCircleModule } from '@angular2-material/progress-circle';
+import { MaterialModule } from '@angular/material';
 import { routing, appRoutingProviders }  from './app.routing';
 
 import { IteratableObjectPipe } from './shared/iteratableObject.pipe';
@@ -33,8 +29,7 @@ import { BudgetHistoryComponent } from './budget-history/budget-history.componen
     ReactiveFormsModule,
     HttpModule,
     routing,
-    MdButtonModule.forRoot(), MdCardModule.forRoot(), MdInputModule.forRoot(),
-    MdToolbarModule.forRoot(), MdProgressCircleModule.forRoot()
+    MaterialModule.forRoot(),
   ],
   providers: [ appRoutingProviders, MainService],
   bootstrap: [ AppComponent ]
