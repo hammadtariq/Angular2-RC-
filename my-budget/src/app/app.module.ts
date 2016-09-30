@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { MaterialModule } from '@angular/material';
 import { routing, appRoutingProviders }  from './app.routing';
+import { CanActivateViaAuthGuard } from './shared/auth-guard.service';
 
 import { IteratableObjectPipe } from './shared/iteratableObject.pipe';
 import { MainService } from './shared/main.service';
@@ -31,7 +32,7 @@ import { BudgetHistoryComponent } from './budget-history/budget-history.componen
     routing,
     MaterialModule.forRoot(),
   ],
-  providers: [ appRoutingProviders, MainService],
+  providers: [ appRoutingProviders, MainService, CanActivateViaAuthGuard],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

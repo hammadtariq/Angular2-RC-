@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
+
 
 // Must export the config
 export const firebaseConfig = {
@@ -21,7 +23,7 @@ const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
 @Injectable()
 export class MainService {
   budgetHistory: any;
-
+  spendMoneyData: Observable<Object>;
   constructor(private router: Router) {}
 
   getStarted(username) {
@@ -68,6 +70,10 @@ export class MainService {
 
   moneyToSpend(budgetRef) {
     return database.ref(budgetRef).once('value');
+    // return new Observable((observer) => {
+    //     let d = database.ref(budgetRef).once('value')
+    //     observer.next(d);
+    // });
   }
 
   todaySpended(budgetRef, category, item, todaySpended, quantity) {

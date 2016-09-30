@@ -13,11 +13,11 @@
     <button flex="auto" md-raised-button color="warn" class="btn" routerLink='/add-budget/edit'>Update Budget</button>
     <button flex="auto" md-raised-button color="warn" class="btn" routerLink='/budget-history'>Budget History</button>
   </div>
-  
+  {{getBudgetInfo() | async}}
   <md-card layout="row" style="margin-top: 4vh; margin:4vh 10px 0 10px;" layout-align="center center">
     <div style="margin-left:40%" *ngIf="!dataRecieved"><md-spinner color="warn"></md-spinner></div>
     <md-card-content *ngIf="dataRecieved">
-      <p align='right'>{{currentDate}} days left</p>
+      <p align='right'>{{days}} days left</p>
       <p></p>
       <p class="md-body-2">Total Budget: <span class="amount">{{budgetInfo.budget}} Rs</span></p>
       <p class="md-body-2" *ngIf="budgetInfo.update != '' ">Total Budget Left: <span style="color:red">{{budgetInfo.update}} Rs</span></p>

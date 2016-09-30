@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -10,15 +10,16 @@ import { itemNameValidator, amountValidator  } from '../shared/form.validators';
   templateUrl: './today-budget.component.html',
   styleUrls: ['./today-budget.component.css']
 })
-export class TodayBudgetComponent implements OnInit {
+export class TodayBudgetComponent implements OnInit, AfterViewInit {
   budgetInfo = {income: '', budget: '', spend: '', update: ''};
   budgetRef: string;
   message: any = '';
-  currentDate: Object;
-  dataRecieved: boolean;
-  categories: Array<String>;
+  days: Object;
+  dataRecieved: boolean = false;
+  categories: Array<String> = ['Travel', 'Food', 'Medical', 'Other']; ;
   myForm: FormGroup;
-  units: Array<string>;
+  units: Array<string> = ['kg', 'dozen', 'item', 'other'];
+  counter: number = 0;
   constructor(fb: FormBuilder, private route: ActivatedRoute, private mainService: MainService) {
       this.myForm = fb.group({
           'quantity' : [''],
@@ -31,26 +32,29 @@ export class TodayBudgetComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.categories = ['Travel', 'Food', 'Medical', 'Other'];
-    this.units = ['kg', 'dozen', 'item', 'other'];
     let { budgetRef } = this.route.snapshot.params;
-    this.dataRecieved = false;
-    this.currentDate = this.mainService.leftDays();
+    this.days = this.mainService.leftDays() + 1;
     this.budgetRef = budgetRef !== 'back' ? budgetRef : localStorage['budgetRef'] ;
-    this.getBudgetInfo();
+  }
+
+  ngAfterViewInit() {
   }
 
   getBudgetInfo() {
+    if (this.counter >= 1) { return; }else {
       this.mainService.moneyToSpend(this.budgetRef)
-        .then( snapshot => {
-          console.log('snap : ', snapshot.val());
-          let {totalIncome, totalBudget, spendPerDay, totalSaving, updatedBudget} = snapshot.val();
-          this.budgetInfo = Object.assign({}, this.budgetInfo, {
-            income: totalIncome, budget: totalBudget, saving: totalSaving, spend: spendPerDay, update: updatedBudget
-          });
-          this.dataRecieved = true;
-        })
-        .catch (err => console.log('err from budget : ', err));
+      .then( snapshot => {
+        console.log('snap : ', snapshot.val());
+        let {totalIncome, totalBudget, spendPerDay, totalSaving, updatedBudget} = snapshot.val();
+        this.budgetInfo = Object.assign({}, this.budgetInfo, {
+          income: totalIncome, budget: totalBudget, saving: totalSaving, spend: spendPerDay, update: updatedBudget
+        });
+        this.dataRecieved = true;
+        this.counter++;
+      })
+      .catch (err => console.log('err from budget : ', err));
+      }
+
   }
 
   budgetCheck() {
