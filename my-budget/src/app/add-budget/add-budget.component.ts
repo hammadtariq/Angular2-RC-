@@ -24,9 +24,12 @@ export class AddBudgetComponent implements OnInit {
   constructor(fb: FormBuilder, private route: ActivatedRoute, private mainService: MainService) {
     this.myForm = fb.group({
           'income': ['', Validators.compose([Validators.required])],
-          'saving': ['', Validators.compose([Validators.required])],
+          'saving': '',
       });
-   }
+    // setValue: set values of all property
+    // patchValue: change values of specific property
+    this.myForm.patchValue({saving: 0});
+  }
 
   ngOnInit() {
       let { params } = this.route.snapshot;
@@ -46,13 +49,15 @@ export class AddBudgetComponent implements OnInit {
     });
   }
 
-  totalIncome(data) {
-    console.log('total Income: ', data);
-    this.mainService.calculateBudget(this.username, data.income, data.saving);
+  totalIncome(form) {
+    console.log('total Income: ', form);
+    form.saving === '' && (form.saving = 0);
+    this.mainService.calculateBudget(this.username, form.income, form.saving);
   }
 
-  editIncome(income, saving) {
-      this.mainService.editIncome(this.username, income, saving, this.oldIncome);
+  editIncome(form) {
+      form.saving === '' && (form.saving = 0);
+      this.mainService.editIncome(this.username, form.income, form.saving, this.oldIncome);
   }
 
   cancelEdit() {

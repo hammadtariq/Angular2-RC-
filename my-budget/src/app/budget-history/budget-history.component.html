@@ -2,13 +2,14 @@
   <span><img class="logoImg" src="../../images/wallet2.png" alt="logo"></span>
   <span style="font-family:cursive;">My Budget</span>
 </md-toolbar>
+<md-progress-bar *ngIf="!dataRecieved" mode="indeterminate" color="warn"></md-progress-bar>
 
 <div class="main">
   
   <div class="backBtn">
     <button flex md-raised-button color="warn" routerLink='/today-budget/back'>Back</button>
   </div>
-  <div class="spinner" *ngIf="!dataRecieved"><md-spinner color="warn"></md-spinner></div>
+  <!--<div class="spinner" *ngIf="!dataRecieved"><md-spinner color="warn"></md-spinner></div>-->
   <div *ngIf="dataRecieved" #modal>
     <md-card class="mainCard" *ngFor='let month of history | iterateObject:"key":true; let id=index' >
       <p class="display-2" *ngIf="!month.Days">{{message || "Currently no history available to show"}} </p>

@@ -8,12 +8,12 @@
   <md-card style="margin-top: 20vh;">
     <md-card-content>
           
-          <form [formGroup]="myForm" (ngSubmit)="totalIncome(myForm.value);">
+          <form *ngIf="!editFlag" [formGroup]="myForm"  (ngSubmit)="totalIncome(myForm.value);">
             <div>
-              <md-input [value]="oldIncome.totalIncome" class="budget-input" [placeholder]="placeholderText" type="number" #income [formControl]="myForm.controls['income']" [class.error]="myForm.controls['income'].touched">
+              <md-input class="budget-input" [placeholder]="placeholderText" type="text" formControlName="income" [class.error]="myForm.controls['income'].touched">
                 <span md-suffix>&nbsp;Rs</span>
               </md-input>
-              <md-input [value]="oldIncome.totalSaving" class="budget-input" placeholder="Amount you want to save" type="number" #saving [formControl]="myForm.controls['saving']" [class.error]="myForm.controls['saving'].touched">
+              <md-input class="budget-input" placeholder="Amount you want to save(optional)" type="text" formControlName="saving" [class.error]="myForm.controls['saving'].touched">
                 <span md-suffix>&nbsp;Rs</span>
               </md-input>
               <div class="err" *ngIf="myForm.controls['saving'].value > myForm.controls['income'].value">you can't save more than provided income</div>
@@ -21,9 +21,24 @@
               <div class="err" *ngIf="myForm.controls['saving'].hasError('required') && myForm.controls['saving'].touched">saving is required</div>
             </div>
             <div *ngIf="!myForm.valid && myForm.dirty" class="err">Some form field values are invalid</div>
-            <button *ngIf="!editFlag" md-raised-button color="warn" type="submit" [disabled]="!myForm.valid">Submit</button>
-            <div *ngIf="editFlag">
-              <button md-raised-button color="warn" type="button" [disabled]="!myForm.valid" (click)="editIncome(income.value,saving.value);">Save</button>
+            <button md-raised-button color="warn" type="submit" [disabled]="!myForm.valid">Submit</button>
+          </form>
+
+          <form *ngIf="editFlag" [formGroup]="myForm" (ngSubmit)="editIncome(myForm.value);">
+            <div>
+              <md-input [value]="oldIncome.totalIncome" class="budget-input" [placeholder]="placeholderText" type="text" formControlName="income" [class.error]="myForm.controls['income'].touched">
+                <span md-suffix>&nbsp;Rs</span>
+              </md-input>
+              <md-input [value]="oldIncome.totalSaving" class="budget-input" placeholder="Amount you want to save(optional)" type="text" formControlName="saving" >
+                <span md-suffix>&nbsp;Rs</span>
+              </md-input>
+              <div class="err" *ngIf="myForm.controls['saving'].value > myForm.controls['income'].value">you can't save more than provided income</div>
+              <div class="err" *ngIf="myForm.controls['income'].hasError('required') && myForm.controls['income'].touched">income is required</div>
+              <!--<div class="err" *ngIf="myForm.controls['saving'].hasError('required') && myForm.controls['saving'].touched">saving is required</div>-->
+            </div>
+            <div *ngIf="!myForm.valid && myForm.dirty" class="err">Some form field values are invalid</div>
+            <div>
+              <button md-raised-button color="warn" type="submit" [disabled]="!myForm.valid">Save</button>
               <button md-raised-button color="warn" type="button" (click)="cancelEdit();">Cancel</button>  
             </div>
           </form>

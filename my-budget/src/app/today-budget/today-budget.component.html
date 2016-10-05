@@ -5,8 +5,9 @@
   <span class="example-fill-remaining-space"></span>
 
   <span><button flex="auto" md-raised-button color="warn" (click)="logout()">Logout</button></span>
-  
 </md-toolbar>
+<md-progress-bar *ngIf="!dataRecieved" mode="indeterminate" color="warn"></md-progress-bar>
+
 
 <div layout="row" style="margin-top: 4vh;">
   <div layout="row">
@@ -15,7 +16,7 @@
   </div>
   {{getBudgetInfo() | async}}
   <md-card layout="row" style="margin-top: 4vh; margin:4vh 10px 0 10px;" layout-align="center center">
-    <div style="margin-left:40%" *ngIf="!dataRecieved"><md-spinner color="warn"></md-spinner></div>
+    <!--<div style="margin-left:40%" *ngIf="!dataRecieved"><md-spinner color="warn"></md-spinner></div>-->
     <md-card-content *ngIf="dataRecieved">
       <p align='right'>{{days}} days left</p>
       <p></p>

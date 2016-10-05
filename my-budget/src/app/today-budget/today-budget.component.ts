@@ -41,7 +41,7 @@ export class TodayBudgetComponent implements OnInit, AfterViewInit {
   }
 
   getBudgetInfo() {
-    if (this.counter >= 1) { return; }else {
+    // if (this.counter >= 1) { return; }else {
       this.mainService.moneyToSpend(this.budgetRef)
       .then( snapshot => {
         console.log('snap : ', snapshot.val());
@@ -50,10 +50,10 @@ export class TodayBudgetComponent implements OnInit, AfterViewInit {
           income: totalIncome, budget: totalBudget, saving: totalSaving, spend: spendPerDay, update: updatedBudget
         });
         this.dataRecieved = true;
-        this.counter++;
+        // this.counter++;
       })
       .catch (err => console.log('err from budget : ', err));
-      }
+      // }
 
   }
 

@@ -49,7 +49,7 @@ export class MainService {
 
   calculateBudget(username, income, saving) {
     let userBudgetRef = 'budgetHistory/' + username + '' + this.currentYear + '/' + this.currentMonth;
-    let budget = income - saving;
+    let budget = Math.abs(income - saving);
     const spendPerDay = Math.floor(budget / this.leftDays());
     database.ref(userBudgetRef).update({
       totalIncome: income,
@@ -91,15 +91,16 @@ export class MainService {
     });
   }
 
-  editIncome(username, newIncome, newSaving, oldIncome) {
+  editIncome(username, newIncome, newSaving= 0, oldIncome) {
     if (newIncome === oldIncome.totalIncome && newSaving === oldIncome.totalSaving) {
        this.router.navigate(['/today-budget', this.budgetRef]);
        return false;
     }
-    let newBudget = newIncome - newSaving;
-    const updatedBudget = oldIncome.updatedbudget ?
-      oldIncome.updatedbudget + Math.abs(newBudget - oldIncome.totalBudget)
-      : Math.abs(newBudget - oldIncome.totalBudget);
+    let newBudget = Math.abs(newIncome - newSaving);
+    const updatedBudget = oldIncome.updatedBudget ?
+      oldIncome.updatedBudget + Math.abs(newBudget - oldIncome.totalBudget)
+      : '';
+      // : Math.abs(newBudget - oldIncome.totalBudget);
     if (updatedBudget) {
       const spendPerDay = Math.floor(updatedBudget / this.leftDays());
       database.ref(this.budgetRef).update({
