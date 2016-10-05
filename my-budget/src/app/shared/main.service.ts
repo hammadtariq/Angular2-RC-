@@ -98,8 +98,9 @@ export class MainService {
     }
     let newBudget = Math.abs(newIncome - newSaving);
     const updatedBudget = oldIncome.updatedBudget ?
-      oldIncome.updatedBudget + Math.abs(newBudget - oldIncome.totalBudget)
-      : '';
+      oldIncome.totalBudget > newBudget ?
+      oldIncome.updatedBudget - Math.abs(newBudget - oldIncome.totalBudget)
+      : oldIncome.updatedBudget + Math.abs(newBudget - oldIncome.totalBudget) : '';
       // : Math.abs(newBudget - oldIncome.totalBudget);
     if (updatedBudget) {
       const spendPerDay = Math.floor(updatedBudget / this.leftDays());
@@ -143,7 +144,7 @@ export class MainService {
   leftDays() {
     const date = new Date();
     const totalDays = this.daysInMonth(date.getMonth() + 1, date.getFullYear());
-    return (totalDays - (date.getDate() + 1));
+    return (totalDays - date.getDate());
   }
 
   getHistory() {

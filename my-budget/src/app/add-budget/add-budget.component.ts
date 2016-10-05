@@ -21,6 +21,7 @@ export class AddBudgetComponent implements OnInit {
   btnLabel: string = 'Add';
   editFlag: boolean;
   myForm: FormGroup;
+  dataRecieved: boolean = false;
   constructor(fb: FormBuilder, private route: ActivatedRoute, private mainService: MainService) {
     this.myForm = fb.group({
           'income': ['', Validators.compose([Validators.required])],
@@ -37,14 +38,17 @@ export class AddBudgetComponent implements OnInit {
       this.username = params['username'] !== 'edit' ?
       params['username'] : localStorage['username'];
       this.placeholderText = 'Your total income of ' + this.getCurrentMonth();
+      this.dataRecieved = false;
   }
 
   getIncome() {
     this.mainService.getIncome()
     .then((res) => {
+      this.dataRecieved = true;
       console.log('old income: ', res);
       this.oldIncome = res;
     }, (err) => {
+      this.dataRecieved = true;
       console.log(err);
     });
   }
@@ -53,11 +57,13 @@ export class AddBudgetComponent implements OnInit {
     console.log('total Income: ', form);
     form.saving === '' && (form.saving = 0);
     this.mainService.calculateBudget(this.username, form.income, form.saving);
+    this.dataRecieved = true;
   }
 
   editIncome(form) {
       form.saving === '' && (form.saving = 0);
       this.mainService.editIncome(this.username, form.income, form.saving, this.oldIncome);
+      this.dataRecieved = true;
   }
 
   cancelEdit() {

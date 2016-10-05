@@ -2,6 +2,7 @@
   <span><img class="logoImg" src="../../images/wallet2.png" alt=""></span>
   <span style="font-family:cursive;">My Budget</span>
 </md-toolbar>
+<md-progress-bar *ngIf="editFlag && !dataRecieved" mode="indeterminate" color="warn"></md-progress-bar>
 
 <div class="main">
 

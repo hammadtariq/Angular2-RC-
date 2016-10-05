@@ -33,7 +33,7 @@ export class TodayBudgetComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     let { budgetRef } = this.route.snapshot.params;
-    this.days = this.mainService.leftDays() + 1;
+    this.days = this.mainService.leftDays();
     this.budgetRef = budgetRef !== 'back' ? budgetRef : localStorage['budgetRef'] ;
   }
 
