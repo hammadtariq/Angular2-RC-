@@ -1,35 +1,38 @@
 <md-toolbar class="toolbar">
-  <span style="margin-right:10px;"><img src="../../images/wallet2.png" style="width:30px;" alt=""></span>
+  <span><img class="logoImg" src="../../images/wallet2.png" alt="logo"></span>
   <span style="font-family:cursive;">My Budget</span>
 </md-toolbar>
 
 <div class="main">
   
-  <div style="text-align:left;">
+  <div class="backBtn">
     <button flex md-raised-button color="warn" routerLink='/today-budget/back'>Back</button>
   </div>
-
-  <md-card style="margin-top: 4vh;">
-    <div style="margin-left:46%" *ngIf="!dataRecieved"><md-spinner color="warn"></md-spinner></div>
-    <md-card-content *ngIf="dataRecieved" layout="row" style="overflow-x: auto;" >
-        <p class="display-2" *ngIf="message">{{message}}</p>
-        <table class="historyTable" layout="row" flex>
-          <tr>
-            <th class="tRow">Day</th>
-            <th class="tRow">Category</th>
-            <th class="tRow">Item</th>
-            <th class="tRow">Amount</th>
-          </tr>
-          <tr class="tRow" *ngFor="let item of historyKeys">
-            <td class="tRow">{{item | date:"shortDate"}} {{item | date:"HH:mm"}}</td>
-            <td class="tRow">{{history[item].category}}</td>
-            <td class="tRow">{{history[item].item}}</td>
-            <td class="tRow">{{history[item].money}}</td>
-          </tr>
-        </table>
-    </md-card-content>
-  </md-card>
-  
+  <div class="spinner" *ngIf="!dataRecieved"><md-spinner color="warn"></md-spinner></div>
+  <div *ngIf="dataRecieved" #modal>
+    <md-card class="mainCard" *ngFor='let month of history | iterateObject:"key":true; let id=index' >
+      <p class="display-2" *ngIf="!month.Days">{{message || "Currently no history available to show"}} </p>
+      <md-card-content class="historyCard" *ngIf="month.Days" layout="row" >
+          <h3 (click)="toggleMe(id)" class="monthText">{{month.k}} <span class="saving">saved: {{month.updatedBudget}} Rs</span></h3>
+          <table *ngIf="toggle == id" class="historyTable" layout="row" flex>
+            <tr>
+              <th class="tRow">Day</th>
+              <th class="tRow">Category</th>
+              <th class="tRow">Item</th>
+              <th class="tRow">Quantity</th>
+              <th class="tRow">Amount</th>
+            </tr>
+            <tr *ngFor="let item of month.Days | iterateObject:'key':true">
+              <td class="tRow">{{item.k | date:"shortDate"}} {{item.k | date:"HH:mm"}}</td>
+              <td class="tRow">{{item.category}}</td>
+              <td class="tRow">{{item.item}}</td>
+              <td class="tRow">{{item.quantity || "not defined"}}</td>
+              <td class="tRow">{{item.money}}</td>
+            </tr>
+          </table>
+      </md-card-content>
+    </md-card>
+  </div>
   
 </div>
 

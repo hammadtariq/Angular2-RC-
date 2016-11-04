@@ -10,10 +10,15 @@ import { MainService } from '../shared/main.service';
 export class BudgetHistoryComponent implements OnInit {
 
   history: Object;
-  historyKeys: Array<string>;
+  monthKeys: Array<string>;
   dataRecieved: boolean;
-  message: string;
+  message: any;
+  dayKeys: Array<any>;
+  count: number;
+  toggle: boolean;
   constructor(private mainService: MainService) {
+    this.count = 0;
+    this.toggle = false;
     this.dataRecieved = false;
   }
 
@@ -23,17 +28,29 @@ export class BudgetHistoryComponent implements OnInit {
 
   getHistory() {
     this.mainService.getHistory()
-    .then((res) => {
-      this.history = res;
-      console.log('history obj : ', res);
-      this.historyKeys = Object.keys(this.history);
-      console.log(this.historyKeys);
-      this.dataRecieved = true;
-    }, (err) => {
-      this.message = err;
-      this.dataRecieved = true;
-      console.log('error:', err);
-    });
+      .then((snapshot) => {
+        if (!snapshot.val()) {
+          throw new Error('No history available yet.');
+        }else {
+          this.history = snapshot.val();
+          console.log('history obj : ', this.history);
+          this.dataRecieved = true;
+        }
+      })
+      .catch((err) => {
+        this.message = err;
+        this.dataRecieved = true;
+        console.log('error:', err);
+      });
+  }
+
+  toggleMe(id) {
+    if (this.count % 2 === 0) {
+      this.toggle = id;
+    }else {
+      this.toggle = id;
+    }
+    this.count++;
   }
 
 }

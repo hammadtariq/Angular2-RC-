@@ -31,15 +31,14 @@ export class MainService {
 
   getStarted(username) {
       let vm = this;
-      database.ref('users/' + username).once('value', function(snapshot) {
+      database.ref('users/' + username).once('value', (snapshot) => {
           const data = snapshot.val();
           if (data) {
-            const date = new Date();
-            let currentMonth = monthNames[date.getMonth()];
-            let currentYear = date.getFullYear();
-            let budgetRef = 'budgetHistory/' + username + '' + currentYear + '/' + currentMonth;
+            let budgetRef = 'budgetHistory/' + username + '' + this.currentYear + '/' + this.currentMonth;
+            let budgetRefYearly = 'budgetHistory/' + username + '' + this.currentYear;
             window.localStorage['username'] = username;
             window.localStorage['budgetRef'] = budgetRef;
+            window.localStorage['budgetRefYearly'] = budgetRefYearly;
             vm.router.navigate(['/today-budget', budgetRef]);
           }else {
             database.ref('users/' + username).set({
@@ -52,10 +51,7 @@ export class MainService {
   }
 
   calculateBudget(username, budget, updatedBudget?, editFlag? ) {
-    const date = new Date();
-    let currentMonth = monthNames[date.getMonth()];
-    let currentYear = date.getFullYear();
-    let userBudgetRef = 'budgetHistory/' + username + '' + currentYear + '/' + currentMonth;
+    let userBudgetRef = 'budgetHistory/' + username + '' + this.currentYear + '/' + this.currentMonth;
     if (!editFlag) {
         const spendPerDay = Math.floor(budget / this.leftDays());
         database.ref(userBudgetRef).update({
@@ -72,6 +68,8 @@ export class MainService {
           });
     }
     window.localStorage['budgetRef'] = userBudgetRef;
+    let budgetRefYearly = 'budgetHistory/' + username + '' + this.currentYear;
+    window.localStorage['budgetRefYearly'] = budgetRefYearly;
     this.router.navigate(['/today-budget', userBudgetRef]);
   }
 
@@ -83,20 +81,24 @@ export class MainService {
     return database.ref(budgetRef).once('value');
   }
 
-  todaySpended(budgetRef, category, item, todaySpended) {
-    return new Promise((resolve, reject) => {
-        let date = new Date();
-        database.ref(budgetRef + '/Days/' + date).once('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-              resolve('Todays spended amount already added');
-            }else {
-              database.ref(budgetRef + '/Days/' + date).set({
-                category: category, item: item, money: todaySpended});
-              reject('Todays spended amount successfully added');
-            }
-        });
-    });
+  todaySpended(budgetRef, category, item, todaySpended, quantity) {
+    let date = new Date();
+    return database.ref(budgetRef + '/Days/' + date).set({
+      category: category, item: item, quantity: quantity, money: todaySpended});
+    // reject('Item successfully added');
+    // return new Promise((resolve, reject) => {
+    //     let date = new Date();
+    //     database.ref(budgetRef + '/Days/' + date).once('value', (snapshot) => {
+    //         const data = snapshot.val();
+    //         if (data) {
+    //           resolve('Todays spended amount already added');
+    //         }else {
+    //           database.ref(budgetRef + '/Days/' + date).set({
+    //             category: category, item: item, money: todaySpended});
+    //           reject('Item successfully added');
+    //         }
+    //     });
+    // });
 
   }
 
@@ -109,35 +111,12 @@ export class MainService {
     });
   }
 
-  isLoggedIn() {
-      if (this.budgetRef) {
-        this.router.navigate(['/today-budget', this.budgetRef]);
-        return false;
-      }else {
-        return true;
-      }
-  }
-
-  getHistory() {
-    return new Promise((resolve, reject) => {
-        database.ref(this.budgetRef + '/Days').once('value', (snapshot) => {
-          console.log('history: ', snapshot.val());
-          snapshot.val() ? resolve(snapshot.val()) : reject('No history available yet.');
-        });
-    });
-
-  }
-
   editBudget(username, newBudget, oldBudget) {
     database.ref(this.budgetRef).update({
       totalBudget: newBudget
     });
     const updatedBudget = oldBudget.updatedBudget + Math.abs(newBudget - oldBudget.totalBudget);
     this.calculateBudget(username, newBudget, updatedBudget, true);
-  }
-
-  get budgetRef() {
-    return window.localStorage['budgetRef'];
   }
 
   cancelEdit() {
@@ -165,4 +144,43 @@ export class MainService {
     return (totalDays - (date.getDate() + 1));
   }
 
+  getHistory() {
+      return database.ref(this.budgetRefYearly).once('value');
+  }
+
+  isLoggedIn() {
+        if (this.budgetRef) {
+          database.ref(this.budgetRefYearly + '/' + this.currentMonth).once('value', (snapshot) => {
+            snapshot.val() ? this.router.navigate(['/today-budget', this.budgetRef]) :
+            this.router.navigate(['/add-budget', this.username]);
+            // console.log('budget obj: ', snapshot.val());
+            // snapshot.val() ? resolve(snapshot.val()) : reject('error in getting budget');
+          });
+          return false;
+        }else {
+          return true;
+        }
+    }
+
+    get budgetRef() {
+      return window.localStorage['budgetRef'];
+    }
+
+    get budgetRefYearly() {
+      return window.localStorage['budgetRefYearly'];
+    }
+
+    get username(){
+      return window.localStorage['username'];
+    }
+
+    get currentMonth(){
+      const date = new Date();
+      return monthNames[date.getMonth()];
+    }
+
+    get currentYear(){
+      const date = new Date();
+      return date.getFullYear();
+    }
 }

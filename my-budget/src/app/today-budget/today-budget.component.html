@@ -1,5 +1,5 @@
 <md-toolbar class="toolbar">
-  <span style="margin-right:10px;"><img src="../../images/wallet2.png" style="width:30px;" alt=""></span>
+  <span><img class="logoImg" src="../../images/wallet2.png" alt=""></span>
   <span style="font-family:cursive;">My Budget</span>
   <!-- This fills the remaining space of the current row -->
   <span class="example-fill-remaining-space"></span>
@@ -22,6 +22,7 @@
       <p class="md-body-2">Total Budget: <span class="amount">{{budgetInfo.total}} Rs</span></p>
       <p class="md-body-2" *ngIf="budgetInfo.update != '' ">Total Budget Left: <span style="color:red">{{budgetInfo.update}} Rs</span></p>
       <h3 class="md-display-2">Amount you can spend in remaining days: <span style="color:green">{{budgetInfo.spend}} Rs</span></h3>
+      <p class="md-body-2" style="color:green;margin:3px;">{{message}}</p>
       <form [formGroup]="myForm" (ngSubmit)="totalSpended(myForm);">
           <div>
             <select class="selectBox" [formControl]="myForm.controls['category']">
@@ -34,19 +35,34 @@
           <div>
             <md-input class="budget-input" [formControl]="myForm.controls['itemName']" [class.error]="myForm.controls['itemName'].touched && myForm.controls['itemName'].hasError('invaliditemName')" type="text" placeholder="Item Name">
             </md-input>
-            <div *ngIf="myForm.controls['itemName'].hasError('required') && myForm.controls['itemName'].touched">item name is required</div>
-            <div *ngIf="myForm.controls['itemName'].hasError('invaliditemName') && myForm.controls['itemName'].dirty">item name should be a text value</div>  
+            <div class="err" *ngIf="myForm.controls['itemName'].hasError('required') && myForm.controls['itemName'].touched">item name is required</div>
+            <div class="err" *ngIf="myForm.controls['itemName'].hasError('invaliditemName') && myForm.controls['itemName'].dirty">item name should be a text value</div>  
           </div>
+          <table cellspacing="0">
+            <tr>
+              <td>
+                <md-input class="budget-input" [formControl]="myForm.controls['quantity']" type="number" placeholder="Quantity (optional)"></md-input>
+              </td>
+              <td>
+                <select class="selectBox" [formControl]="myForm.controls['unit']">
+                  <option selected disabled>Choose unit</option>
+                  <option *ngFor="let unit of units;" [value]="unit">
+                    {{unit}}
+                  </option>
+                </select>
+              </td>
+            </tr>
+          </table>
           <div>
             <md-input class="budget-input" [formControl]="myForm.controls['amount']" [class.error]="myForm.controls['amount'].touched && myForm.controls['amount'].hasError('invalidAmount')" type="text" placeholder="Amount">
               <span md-suffix>&nbsp;Rs</span>
             </md-input>
-            <div *ngIf="myForm.controls['amount'].hasError('required') && myForm.controls['amount'].touched">amount is required</div>
-            <div *ngIf="myForm.controls['amount'].hasError('invalidAmount') && myForm.controls['amount'].dirty">amount should be a numeric value</div>
+            <div class="err" *ngIf="myForm.controls['amount'].value > budgetInfo.update">you are out of your budget for this amount, please update your budget</div>
+            <div class="err" *ngIf="myForm.controls['amount'].hasError('required') && myForm.controls['amount'].touched">amount is required</div>
+            <div class="err" *ngIf="myForm.controls['amount'].hasError('invalidAmount') && myForm.controls['amount'].dirty">amount should be a numeric value</div>
           </div>
+          <div *ngIf="!myForm.valid && myForm.dirty" class="err">Some form field values are invalid</div>
           <button md-raised-button color="warn" type="submit" [disabled]="!myForm.valid">Submit</button>
-          <div *ngIf="!myForm.valid && myForm.dirty">Some form field values are invalid</div>
-          <p class="md-body-2">{{message}}</p>
       </form>
     </md-card-content>
   </md-card>
