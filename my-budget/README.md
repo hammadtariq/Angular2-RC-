@@ -2,10 +2,6 @@
 
 This project covers topics <b>Routing, Form validation, firebase sdk and angular material 2</b>
 It's a Progressive web app, so to save it on your mobile open options menu of your browser and choose "add to home screen":
-<div>
-<img src="savemobile.png" alt="screenshot" width="500" height="500">
-</div>
-
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.15.
 
