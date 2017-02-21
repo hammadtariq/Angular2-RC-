@@ -868,6 +868,6 @@
     ],
 
     // The output window name for the unit test messages, defaults to Python output window.
-    "python.unitTest.outputWindow": "Python Test Log"
-
+    "python.unitTest.outputWindow": "Python Test Log",
+    "typescript.check.workspaceVersion": false
 }

@@ -1,25 +1,10 @@
 <div>
     <h1>{{Title}}</h1>
     
-    <card *ngFor="let card of cards.active" [id]="card.id"
+    <card *ngFor="let card of cards" [id]="card.id"
         [type]="card.type"
         [created]="card.created_at"
         [updated]="card.updated_at"
         [attempts]="card.attempts"
         [duration]="card.duration"></card>
-    
-    <card *ngFor="let card of cards.completed" [id]="card.id"
-        [type]="card.type"
-        [created]="card.created_at"
-        [updated]="card.updated_at"
-        [attempts]="card.attempts"
-        [duration]="card.duration"></card>
-    
-    <card *ngFor="let card of cards.failed" [id]="card.id"
-        [type]="card.type"
-        [created]="card.created_at"
-        [updated]="card.updated_at"
-        [attempts]="card.attempts"
-        [duration]="card.duration"></card>
-
 </div>

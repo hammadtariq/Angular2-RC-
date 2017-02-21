@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 require('rxjs/add/operator/map');
-var API_URL = 'http://localhost:4000'; // URL to web api
+var API_URL = 'http://localhost:3000/api/v1/analyze'; // URL to web api
 var DashboardService = (function () {
     function DashboardService(http) {
         this.http = http;

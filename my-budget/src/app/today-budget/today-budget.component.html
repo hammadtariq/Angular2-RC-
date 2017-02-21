@@ -22,7 +22,7 @@
       <p></p>
       <p class="md-body-2">Total Budget: <span class="amount">{{budgetInfo.budget}} Rs</span></p>
       <p class="md-body-2" *ngIf="budgetInfo.update != '' ">Total Budget Left: <span style="color:red">{{budgetInfo.update}} Rs</span></p>
-      <h3 class="md-display-2">Amount you can spend in remaining days: <span style="color:green">{{budgetInfo.spend}} Rs</span></h3>
+      <h3 class="md-display-2">Amount you can spend per day: <span style="color:green">{{budgetInfo.spend}} Rs</span></h3>
       <p class="md-body-2" style="color:green;margin:3px;">{{message}}</p>
       <form [formGroup]="myForm" (ngSubmit)="totalSpended(myForm);">
           <div>

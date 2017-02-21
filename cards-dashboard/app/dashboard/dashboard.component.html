@@ -1,6 +1,7 @@
 
 <div class="app">
-    <list class="list" id='active' Title='Active' [cards]="cards" ></list>
-    <list class="list" id='failed' Title='Failed' [cards]="cards" ></list>
-    <list class="list" id='complete' Title='Complete' [cards]="cards" ></list>
+    <list class="list" id='inactive' Title='In Active' [cards]="cards.inactive" ></list>
+    <list class="list" id='active' Title='Active' [cards]="cards.active" ></list>
+    <list class="list" id='failed' Title='Failed' [cards]="cards.failed" ></list>
+    <list class="list" id='complete' Title='Complete' [cards]="cards.complete" ></list>
 </div>

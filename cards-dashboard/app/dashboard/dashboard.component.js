@@ -13,14 +13,20 @@ var dashboard_service_1 = require('./shared/dashboard.service');
 var DashboardComponent = (function () {
     function DashboardComponent(dashService) {
         this.dashService = dashService;
-        this.cards = { active: [], failed: [], delayed: [], complete: [] };
+        this.cards = { inactive: [], active: [], failed: [], delayed: [], complete: [] };
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.getLogs();
+        setInterval(function () {
+            _this.getLogs();
+        }, 10000);
+    };
+    DashboardComponent.prototype.getLogs = function () {
+        var _this = this;
         this.dashService.getLogs()
             .subscribe(function (res) { return _this.cards = res; }, function () {
-            alert("ERROR 503: Server is not responding right now.");
-            console.log("ERROR");
+            console.log("ERROR 503: Server is not responding right now.");
         }, function () { return console.log("Cards: ", _this.cards); });
     };
     DashboardComponent = __decorate([

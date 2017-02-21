@@ -24,7 +24,7 @@
     margin: 15px 0 15px 0;
     padding: 5px;
     border-radius: 2px;
-    background: #FFF9C4;
+    background: #FFFAD3;
 }
 
 table{
@@ -41,23 +41,4 @@ table{
     margin: 0 auto;
 }
 	
-	/*thead tr { 
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
-	}
-	
-	td { 
-		position: relative;
-		padding-left: 50%; 
-	}
-	
-	td:before { 
-		position: absolute;
-		top: 6px;
-		left: 6px;
-		width: 45%; 
-		padding-right: 10px; 
-		white-space: nowrap;
-	}*/
 }

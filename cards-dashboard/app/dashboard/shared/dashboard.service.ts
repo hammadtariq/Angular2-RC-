@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core'
 import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/map';
-
-const API_URL = 'http://localhost:4000';  // URL to web api
+const API_URL = 'http://localhost:3000/api/v1/analyze';  // URL to web api
 
 @Injectable()
 export class DashboardService {
