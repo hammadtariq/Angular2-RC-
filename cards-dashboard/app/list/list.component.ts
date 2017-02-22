@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   moduleId: module.id,
   selector: 'list',
-  templateUrl: 'list.component.html'
+  templateUrl: 'list.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent {
   @Input() cards:Object

@@ -63,6 +63,7 @@ var CardComponent = (function () {
             moduleId: module.id,
             selector: 'card',
             templateUrl: 'card.component.html',
+            changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [])
     ], CardComponent);

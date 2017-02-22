@@ -24,7 +24,8 @@ var ListComponent = (function () {
         core_1.Component({
             moduleId: module.id,
             selector: 'list',
-            templateUrl: 'list.component.html'
+            templateUrl: 'list.component.html',
+            changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [])
     ], ListComponent);
